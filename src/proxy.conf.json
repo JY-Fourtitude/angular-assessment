@@ -1,0 +1,13 @@
+{
+    "/google": {
+      "target": "https://www.google.com",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/google": ""
+      },
+      "headers": {
+        "X-Frame-Options": "ALLOWALL"
+      }
+    }
+  }
