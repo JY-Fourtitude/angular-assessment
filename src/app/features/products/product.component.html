@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price Range (RM)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products" 
+              (click)="openProductModal(productModal, product.id)" 
+              class="cursor-pointer">
+            <td>{{ product.name }}</td>
+            <td>{{ truncateDescription(product.description) }}</td>
+            <td>{{ getPriceRange(product.variants) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Product Modal -->
+  <ng-template #productModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{ selectedProduct?.name }}</h4>
+      <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+            <div class="image-container">
+                <!-- Loading spinner -->
+                <div class="spinner-container" *ngIf="!imageLoaded">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                
+                <!-- Product image -->
+                <img [src]="selectedProduct?.imagePath" 
+                     [alt]="selectedProduct?.name"
+                     [class.loaded]="imageLoaded"
+                     class="img-fluid product-detail-image"
+                     (load)="imageLoaded = true"
+                     onerror="this.src='assets/images/placeholder.jpg'">
+                </div>
+        </div>
+        <div class="col-md-6">
+          <h5>Description</h5>
+          <p>{{ selectedProduct?.description }}</p>
+          
+          <h5 class="mt-4">Variants</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Variant</th>
+                  <th>Price (RM)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let variant of selectedProduct?.variants">
+                  <td>{{ variant.info }}</td>
+                  <td>{{ variant.price.toLocaleString() }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+    </div>
+  </ng-template>

@@ -1,30 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [RouterLink, CommonModule],
   template: `
-    <div class="bg-primary p-3 d-flex justify-content-end align-items-center">
-      <!-- Time display -->
+    <div class="bg-primary p-3 d-flex justify-content-between align-items-center">
+      <!-- User Welcome -->
+      <div class="text-white" *ngIf="currentUser">
+        Hello {{currentUser.username}}
+      </div>
+      <div class="text-white" *ngIf="!currentUser">
+        <!-- Empty div to maintain layout when no user -->
+        &nbsp;
+      </div>
+
+      <!-- Time and Login/Logout -->
       <div class="text-white text-end">
         <div>Time: {{currentTime}}</div>
-        <button class="btn btn-light mt-2" routerLink="/login">Login</button>
+        <ng-container *ngIf="!currentUser">
+          <button class="btn btn-light mt-2" routerLink="/login">Login</button>
+        </ng-container>
+        <ng-container *ngIf="currentUser">
+          <button class="btn btn-light mt-2" (click)="logout()">Logout</button>
+        </ng-container>
       </div>
     </div>
-
-    <!-- Warning Alert (if needed) -->
-    <!-- <div *ngIf="showWarning" class="alert alert-warning alert-dismissible fade show" role="alert">
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <strong>WARNING</strong>
-          <span class="ms-2">Time: {{currentTime}}</span>
-        </div>
-        <button type="button" class="btn-close" (click)="closeWarning()"></button>
-      </div>
-    </div> -->
   `,
   styles: [`
     .bg-primary {
@@ -38,11 +42,19 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   currentTime: string = '';
-  showWarning: boolean = true;
+  currentUser: any;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.authService.currentUser.subscribe(
+      user => this.currentUser = user
+    );
+  }
 
   ngOnInit() {
     this.updateTime();
-    // Update time every minute
     setInterval(() => this.updateTime(), 60000);
   }
 
@@ -55,7 +67,8 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  // closeWarning() {
-  //   this.showWarning = false;
-  // }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
 }

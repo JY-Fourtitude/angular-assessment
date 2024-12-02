@@ -1,30 +1,44 @@
-
 {
-    "users": [
-      {
-        "id": 1,
-        "username": "Shawn",
-        "email": "shawn@yahoo.com",
-        "password": "hashed_password_here"
-      }
-    ],
-    "products": [
-      {
-        "id": 1,
-        "name": "Renault Megane RS 250 Cup",
-        "description": "Sports car with exceptional handling and performance...",
-        "imagePath": "/assets/images/megane-rs.jpg",
-        "variants": [
-          {
-            "info": "Standard Edition",
-            "price": 35000
-          },
-          {
-            "info": "Sport Edition",
-            "price": 40000
-          }
-        ]
-      }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin",
+      "email": "admin@example.com"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Renault Megane RS 250 Cup",
+      "description": "Sports car with exceptional handling and performance...",
+      "imagePath": "/images/megane-rs.jpg",
+      "variants": [
+        {
+          "info": "Standard Edition",
+          "price": 35000
+        },
+        {
+          "info": "Sport Edition",
+          "price": 40000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Renault Megane RS 250000 Cup",
+      "description": "Sports car with exceptional handling and performance and... stylee ",
+      "imagePath": "/images/megane-rs.jpg",
+      "variants": [
+        {
+          "info": "Standard Edition 1 ",
+          "price": 35000
+        },
+        {
+          "info": "Sport Edition 45",
+          "price": 40000
+        }
+      ]
+    }
+  ]
+}

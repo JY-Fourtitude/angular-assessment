@@ -1,59 +1,76 @@
-// src/app/features/dashboard/dashboard.component.ts
 import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink, RouterOutlet, CommonModule],
   template: `
-    <div class="container mx-auto p-6">
-    
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
-          <div class="space-y-2">
-            <a 
-              routerLink="/products" 
-              class="block text-blue-500 hover:text-blue-600"
-            >
-              Browse Products
+    <div class="dashboard-container">
+      <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar bg-primary text-white p-3">
+          <div class="sidebar-item mb-2">
+            <a routerLink="/profile" 
+               class="text-white text-decoration-none d-block p-2" 
+               routerLinkActive="active">
+              Profile
             </a>
-            <a 
-              routerLink="/profile" 
-              class="block text-blue-500 hover:text-blue-600"
-            >
-              My Profile
+          </div>
+          <div class="sidebar-item mb-2">
+            <a routerLink="/change-password" 
+               class="text-white text-decoration-none d-block p-2" 
+               routerLinkActive="active">
+              Change Password
+            </a>
+          </div>
+          <div class="sidebar-item mb-2">
+            <a routerLink="/products" 
+               class="text-white text-decoration-none d-block p-2" 
+               routerLinkActive="active">
+              Products
             </a>
           </div>
         </div>
 
-        <!-- <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-semibold mb-4">Google Search</h3>
-          <div class="flex">
-            <input 
-              type="text" 
-              placeholder="Search Google..."
-              class="flex-1 px-4 py-2 border border-gray-300 rounded-l"
-            >
-            <button 
-              class="px-4 py-2 bg-blue-500 text-white rounded-r hover:bg-blue-600"
-            >
-              Search
-            </button>
-          </div>
-        </div> -->
+        <!-- Main Content -->
+        <div class="main-content p-3">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </div>
-  `
-})
-export class DashboardComponent {
-  showWarning = true;
-  currentTime = new Date().toLocaleTimeString();
+  `,
+  styles: [`
+    .dashboard-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-  closeWarning() {
-    this.showWarning = false;
-  }
-}
+    .sidebar {
+      width: 200px;
+      min-height: calc(100vh - 70px);
+    }
+
+    .main-content {
+      flex: 1;
+    }
+
+    .sidebar-item a {
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar-item a.active {
+      background-color: #FFD700; /* Yellow color */
+      color: #000 !important; /* Black text for better contrast */
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .bg-primary {
+      background-color: #5b9bd5 !important;
+    }
+  `]
+})
+export class Dashboard {}

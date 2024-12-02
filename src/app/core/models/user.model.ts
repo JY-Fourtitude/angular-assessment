@@ -3,6 +3,7 @@ export interface User {
     id: number;
     username: string;
     email: string;
+    password?:string;
     token?: string; // Optional token for JWT authentication
   }
   

@@ -1,0 +1,49 @@
+.cursor-pointer {
+    cursor: pointer;
+  }
+  
+  .cursor-pointer:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .product-detail-image {
+    max-height: 300px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+  }
+
+  .image-container {
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  
+  .product-detail-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .product-detail-image.loaded {
+    opacity: 1;
+  }

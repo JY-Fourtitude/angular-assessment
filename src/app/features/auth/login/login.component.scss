@@ -1,0 +1,17 @@
+:host {
+    display: block;
+  }
+  
+  .card-header {
+    font-weight: 500;
+  }
+  
+  .form-control {
+    &.is-invalid {
+      background-image: none;
+    }
+  }
+  
+  .invalid-feedback {
+    color: #dc3545;
+  }
